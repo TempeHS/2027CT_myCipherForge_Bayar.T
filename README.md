@@ -3,6 +3,6 @@ python app.py
 
 # Run tests
 python tests.py
-Author[Your Name] — Year 9, 2026License
+Author Bayar.T— Year 9, 2026License
 MIT License — see LICENSE for details.thub.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 * [TempeHS Python Flask template](https://github.com/TempeHS/TempeHS_Python-Flask_DevContainer)

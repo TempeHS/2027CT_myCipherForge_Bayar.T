@@ -83,3 +83,38 @@ def encrypt(text, key):
     # result = phase5_encrypt(result, key)
 
     return result
+
+
+def decrypt(text, key):
+    """
+    CipherForge Master Decryption — Reverses all 5 phases.
+
+    IMPORTANT: Phases must be reversed in OPPOSITE order!
+    Encrypt: 1 → 2 → 3 → 4 → 5
+    Decrypt: 5 → 4 → 3 → 2 → 1
+
+    Args:
+        text: The encrypted text
+        key: Same key used for encryption
+
+    Returns:
+        Original plaintext
+    """
+    result = text
+
+    # TODO: Phase 5 — Reverse Wild Card (first!)
+    # result = phase5_decrypt(result, key)
+
+    # TODO: Phase 4 — Reverse Noise Injection
+    # result = phase4_decrypt(result, key)
+
+    # TODO: Phase 3 — Reverse Key-Dependent
+    # result = phase3_decrypt(result, key)
+
+    # TODO: Phase 2 — Reverse Transposition
+    # result = phase2_decrypt(result, key)
+
+    # Phase 1: Reverse Substitution (last!)
+    result = phase1_decrypt(result, key)
+
+    return result

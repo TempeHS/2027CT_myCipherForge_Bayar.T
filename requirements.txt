@@ -1,3 +1,11 @@
-Flask
-bcrypt
-flask_wtf
+# CipherForge Dependencies
+# ========================
+
+# Web Framework
+flask>=3.0.0           # Flask web framework - handles routing, templates, requests
+
+# Security (for Extension 4: Database Authentication)
+werkzeug>=3.0.0        # Security utilities - password hashing, WSGI compatibility
+
+# Testing (for Extension 2: pytest)
+pytest>=8.0.0          # Professional testing framework - better than basic assert

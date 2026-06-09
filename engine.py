@@ -222,8 +222,31 @@ def phase4_decrypt(text, key):
     return result
 
 
+###############################################
+# PHASE 5: WILD CARD - Kerbeus encryption
+###############################################
+
+
+def phase5_encrypt(text, key):
+    """[Describe what your phase does]."""
+    result = text[::-1]
+
+    # YOUR ENCRYPTION CODE HERE
+
+    return result
+
+
+def phase5_decrypt(text, key):
+    """[Describe how you reverse it]."""
+    result = text[::-1]
+
+    # YOUR DECRYPTION CODE HERE
+
+    return result
+
+
 def encrypt(plaintext, key):
-    """Apply all encryption phases in sequence."""
+    """Apply all 5 encryption phases in sequence."""
     result = plaintext
 
     # Phase 1: Substitution (shift all characters)
@@ -238,18 +261,20 @@ def encrypt(plaintext, key):
     # Phase 4: Noise injection (add decoy characters)
     result = phase4_encrypt(result, key)
 
-    # TODO: Phase 5 - Wild Card (your invention!)
+    # Phase 5: Wild Card (your invention!)
+    result = phase5_encrypt(result, key)
 
     return result
 
 
 def decrypt(ciphertext, key):
-    """Reverse all encryption phases."""
+    """Reverse all 5 encryption phases."""
     result = ciphertext
 
     # Decrypt in REVERSE order!
 
-    # TODO: Phase 5 - Wild Card (your invention!)
+    # Phase 5: Reverse your wild card
+    result = phase5_decrypt(result, key)
 
     # Phase 4: Remove noise characters
     result = phase4_decrypt(result, key)

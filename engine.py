@@ -229,19 +229,14 @@ def phase4_decrypt(text, key):
 
 def phase5_encrypt(text, key):
     """[Describe what your phase does]."""
-    result = text[::-1]
-
     # YOUR ENCRYPTION CODE HERE
-
+    result = text[::-1]
     return result
 
 
 def phase5_decrypt(text, key):
     """[Describe how you reverse it]."""
     result = text[::-1]
-
-    # YOUR DECRYPTION CODE HERE
-
     return result
 
 

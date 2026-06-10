@@ -62,13 +62,7 @@ def logout():
 
 
 @app.route("/workshop", methods=["GET", "POST"])
-@app.route("/workshop", methods=["GET", "POST"])
 @login_required  # ← NEW: must be AFTER @app.route, BEFORE def
-def workshop():
-    # This function ONLY runs if user is logged in
-    ...
-
-
 def workshop():
     """Handle encryption and decryption requests."""
     result = ""

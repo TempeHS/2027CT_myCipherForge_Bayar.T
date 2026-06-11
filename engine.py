@@ -229,15 +229,69 @@ def phase4_decrypt(text, key):
 
 def phase5_encrypt(text, key):
     """[Describe what your phase does]."""
+
     # YOUR ENCRYPTION CODE HERE
-    result = text[::-1]
+    def rail_fence_encrypt(text, key):
+        """Rail fence transposition cipher."""
+
+    rails = key.get("rails", 3)
+    if rails < 2 or len(text) == 0:
+        return text
+
+    fence = [[] for _ in range(rails)]
+
+    rail = 0
+    direction = 1
+
+    for char in text:
+        fence[rail].append(char)
+        rail += direction
+        if rail == 0 or rail == rails - 1:
+            direction *= -1
+
+    return "".join(["".join(row) for row in fence])
+
     return result
 
 
 def phase5_decrypt(text, key):
     """[Describe how you reverse it]."""
-    result = text[::-1]
-    return result
+
+    def rail_fence_decrypt(text, key):
+        """Reverse rail fence cipher."""
+
+    rails = key.get("rails", 3)
+    if rails < 2 or len(text) == 0:
+        return text
+
+    # First, calculate how many chars go on each rail
+    rail_lengths = [0] * rails
+    rail = 0
+    direction = 1
+    for _ in text:
+        rail_lengths[rail] += 1
+        rail += direction
+        if rail == 0 or rail == rails - 1:
+            direction *= -1
+
+    # Split ciphertext into rail segments
+    fence = []
+    pos = 0
+    for length in rail_lengths:
+        fence.append(list(text[pos : pos + length]))
+        pos += length
+
+    # Read off in zigzag order
+    result = []
+    rail = 0
+    direction = 1
+    for _ in text:
+        result.append(fence[rail].pop(0))
+        rail += direction
+        if rail == 0 or rail == rails - 1:
+            direction *= -1
+
+    return "".join(result)
 
 
 def encrypt(plaintext, key):

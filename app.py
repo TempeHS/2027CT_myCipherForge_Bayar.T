@@ -5,6 +5,7 @@ Provides a web interface for the 5-phase encryption algorithm.
 
 from flask import Flask, render_template, request
 from engine import encrypt, decrypt
+from database import init_db, register_user, verify_user
 
 app = Flask(__name__)
 import os
@@ -16,7 +17,6 @@ app.secret_key = os.urandom(24)  # Required for sessions
 # Store users (in real apps, use a database with hashed passwords!)
 # SECURITY NOTE: Never store plain text passwords in production.
 # Use werkzeug.security.generate_password_hash() to hash passwords.
-USERS = {"admin": "supersecret", "student": "password123"}
 
 
 def login_required(f):
@@ -39,12 +39,13 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Handle login form."""
+    """Handle login form using database."""
     if request.method == "POST":
         username = request.form.get("username", "")
         password = request.form.get("password", "")
 
-        if username in USERS and USERS[username] == password:
+        # Use database verification instead of dictionary
+        if verify_user(username, password):
             session["logged_in"] = True
             session["username"] = username
             return redirect(url_for("workshop"))
@@ -89,6 +90,37 @@ def workshop():
             result = decrypt(original, key)
 
     return render_template("workshop.html", result=result, original=original)
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Handle user registration."""
+    if request.method == "POST":
+        username = request.form.get("username", "")
+        password = request.form.get("password", "")
+        confirm = request.form.get("confirm", "")
+
+        # Validation
+        if len(username) < 3:
+            return render_template(
+                "register.html", error="Username must be at least 3 characters"
+            )
+
+        if len(password) < 8:
+            return render_template(
+                "register.html", error="Password must be at least 8 characters"
+            )
+
+        if password != confirm:
+            return render_template("register.html", error="Passwords don't match")
+
+        # Try to register
+        if register_user(username, password):
+            return redirect(url_for("login"))
+        else:
+            return render_template("register.html", error="Username already exists")
+
+    return render_template("register.html")
 
 
 if __name__ == "__main__":
